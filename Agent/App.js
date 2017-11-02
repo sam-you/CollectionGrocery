@@ -6,25 +6,78 @@ import {
     Image,
     TouchableHighlight,
     TouchableOpacity,
-    AppRegistry
+    AppRegistry,Alert
 } from 'react-native';
 
 import Signup from './Components/Signup';
 import Login from './Components/Login';
 import Getlists from './Components/getlists';
-
+import PushNotification from 'react-native-push-notification'
+import SocketIOClient from 'socket.io-client';
 export default class App extends Component {
     constructor(props) {
+
         super(props);
 
         this.state = {
-            flag: 'main'
+            flag: 'main',
+            lists:[]
         };
+        this.socket = SocketIOClient('http://192.168.1.4:1128',{jsonp:false});
+         this.socket.on('sendlist',() => {
+            //Alert.alert('message arrive')
+            PushNotification.localNotification({
+                message: "there is new consumer" })
+          //   //alert('lest')
+           })
+        //alert('xx')
+        
+  //var oldMessages = this.state.messages;
+  // React will automatically rerender the component when a new message is added.
+  //this.setState({ messages: oldMessages.concat(message) });
+
+        //alert(this.socket)
     }
     changeFlag(sth) {
         this.setState({ flag: sth });
     }
+    componentDidMount() {
+       
+        //alert(this.socket.on)
+        
+    
+                
+    //     // //alert('inside the mount')
+    //     // setInterval(function(){ fetch('http:192.168.1.4:5000/checkAvailableLists')
+    //     //     .then(response => response.json())
+    //     //     .then(data => {
+    //     //         // if(this.state.lists.length>data.length)
+    //     //         // length=this.state.lists.length;
+    //     //         // else
+    //     //         //     length=data.length;
+    //     //         // for(var i=0;i<length;i++){
+    //     //         //     if(this.state.lists.indexOf(data[i])===-1){
+    //     //         //         newData.push(data[i]);
+    //     //         //     }
+    //     //         // }
+    //     //         if(data.length != this.state.lists.length){
+    //     //             PushNotification.localNotification({
+
+    //     //             message: "there is nwe consumer" })
+    //     //         }
+    //     //         this.setState({ lists: data });
+
+    //     //     })
+    //     //     .catch(err => {
+    //     //         throw err;
+    //     //     }); }, 3000);
+        
+
+            };
+    
+    
     render() {
+
         if (this.state.flag === 'main') {
             return (
                 <View style={styles.container}>

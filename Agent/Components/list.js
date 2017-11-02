@@ -15,7 +15,7 @@ export default class List extends Component {
     }
 
     acceptList (listId) {
-      fetch('http:192.168.2.30:1128/acceptsList', {
+      fetch('http:192.168.1.4:5000/acceptsList', {
           method: 'POST',
           headers: {
               Accept: 'application/json',

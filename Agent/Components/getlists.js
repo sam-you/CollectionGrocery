@@ -58,9 +58,10 @@ export default class Getlists extends Component {
     }
     //fetch active lists from database
     gitlistsfunc() {
-        return fetch('http:192.168.1.19:1128/checkAvailableLists')
+        return fetch('http:192.168.1.4:5000/checkAvailableLists')
             .then(response => response.json())
             .then(data => {
+                alert(data[0].consumerName)
                 this.setState({ lists: data });
             })
             .catch(err => {

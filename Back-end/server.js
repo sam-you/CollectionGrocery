@@ -12,7 +12,7 @@ var Agents = require('./database/model/Agents');
 var Consumers = require('./database/model/Consumers');
 var Lists = require('./database/model/Lists');
 
-var port = process.env.PORT || 1128;
+var port = process.env.PORT || 3000;
 
 var app = express();
 var server = require('http').Server(app);
@@ -139,6 +139,7 @@ app.post('/sendNotification', mid.requiresLogin, (req, res) => {
         }
     );
 });
+
 
 app.post('/consumerSignup', (req, res) => {
     console.log('------> consumerSignup');
