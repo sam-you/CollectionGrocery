@@ -14,14 +14,18 @@ import React, { Component } from 'react';
 import SendNotification from './components/sendNotification'
 import Login from './components/login';
 import Signup from './components/signup';
+import About from './components/aboutUs';
 import Mapview from './components/mapView';
-
+import SocketIOClient from 'socket.io-client';
+import PushNotification from 'react-native-push-notification'
 
 export default class App extends Component {
 
   constructor(props) {
     super(props);
     //alert(MapView.Marker());
+        this.socket = SocketIOClient('http://192.168.1.4:8080',{jsonp:false});
+
     this.state = {
        flag: 'main',
       error: null,
@@ -86,20 +90,15 @@ changeTab (selectedTab) {
                 <View style={styles.container}>
 
   <Image style={styles.containerImg}
-            source = {require('./images/login.jpg')}
+            source = {require('./images/login3.jpg')}
             >
-
-<View style={styles.profile}>
-            <Image style={styles.img}
-            source = {require('./images/profile.png')}
-            />
-</View>
 
             <StatusBar
             backgroundColor ="#000000"
             />
 
-                    <TouchableHighlight 
+
+               <TouchableHighlight 
                         style = {styles.addButton}
                         onPress = {() => {
                             this.changeFlag('login');
@@ -107,7 +106,7 @@ changeTab (selectedTab) {
                     >
                         <Text>LOGIN</Text>
                     </TouchableHighlight>
-
+  <Text>{'\n'}</Text>
 
 
                     <TouchableHighlight 
@@ -118,6 +117,18 @@ changeTab (selectedTab) {
                     >
                         <Text>SIGN UP</Text>
                     </TouchableHighlight>
+  <Text>{'\n'}</Text>
+                      <TouchableHighlight 
+                        style = {styles.addButton}
+                        onPress = {() => {
+                            this.changeFlag('about');
+                        }}
+                    >
+                        <Text>ABOUT US</Text>
+                    </TouchableHighlight>
+
+
+
                     </Image>
                 </View>
             );
@@ -136,6 +147,13 @@ changeTab (selectedTab) {
                   changeFlag = {this.changeFlag.bind(this)} 
                   latitude = {this.state.latitude} 
                   longitude = {this.state.longitude}/>
+            );
+        }else if (this.state.flag === 'about') {
+            return (
+                <About 
+                  
+                  changeFlag = {this.changeFlag.bind(this)} 
+                  />
             );
         }
   }
@@ -164,18 +182,62 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  profile :{
-  // marginTop:0,
-   
-    alignItems: 'center',
-    justifyContent: 'center',
-    // position: 'absolute',
-     // bottom: 0
-  },
-  img:{
-  width: 200,
-    height: 200,
+  addButton:{
+     width: 300,
+        height : 40,
+        backgroundColor:"#DF5900",
+       //  // color:"#FFFFFF",
+       alignItems : "center",
+       justifyContent: 'center',
+       // fontWeight : "700"
   }
+  // profile :{
+  // // marginTop:0,
+   
+  //   alignItems: 'center',
+  //   justifyContent: 'center',
+  //   // position: 'absolute',
+  //    // bottom: 0
+  // },
+  // img:{
+  //   // backgroundColor: '#F7B50C',
+  // width: 100,
+  //   height: 150,
+  //   position: 'absolute',
+  //   top: 252,
+  //   left: 314,
+  // },
+  // sign:{
+  //   width: 50,
+  //   height: 50,
+  //   top: 60,
+  //   left: -10,
+
+  // },
+  // log:{
+  //   // backgroundColor: '#F7B50C',
+  //   width: 50,
+  //   height: 50,
+  //   // position: 'absolute',
+  //   // top: -180,
+  //   // left: 150,
+  // },
+  // about:{
+  //   width: 50,
+  //   height: 50,
+  //   // top: -350,
+  //   // left: 5,
+  // },
+  // location:{
+  //    width: 50,
+  //   height: 50,
+  //   // top: -295,
+  //   // left: 5,
+  // },
+  // touch:{
+  //   flex:1
+  // }
+
 });
 
 

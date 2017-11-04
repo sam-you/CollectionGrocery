@@ -25,7 +25,7 @@ export default class login extends React.Component {
   
 
     onClickButton(){
-        fetch('http:192.168.2.20:1128/consumerLogin', {//192.168.1.7
+        fetch('http:192.168.2.9:1128/consumerLogin', {//192.168.1.7
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
@@ -41,7 +41,9 @@ export default class login extends React.Component {
        })
        .then((responseJson) => {
          
-           // return responseJson;
+           // alert(responseJson);
+
+
            if(responseJson){
            this.state.changeFlag('sendNotification');
 }
@@ -64,7 +66,7 @@ else {
         //         alert("Please Sign Up First");
         //         this.state.changeFlag('signup');
         //     }); 
-
+            // this.state.changeFlag('sendNotification');
         
     }
 
@@ -75,7 +77,7 @@ else {
                 
 
             <Image style={styles.container}
-            source = {require('../images/login3.jpg')}
+            source = {require('../images/main.jpg')}
             >
 
             <StatusBar
